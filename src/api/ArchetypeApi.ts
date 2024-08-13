@@ -24,7 +24,7 @@ export const useArchetypeHook = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return { classes };
 };

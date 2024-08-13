@@ -24,7 +24,7 @@ export const useCreneauxHook = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return { creneaux };
 };

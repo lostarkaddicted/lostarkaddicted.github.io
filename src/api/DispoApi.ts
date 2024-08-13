@@ -32,13 +32,8 @@ export const useDisposHook = (count: number) => {
 };
 
 export const removeDispoForGuildy = async (idGuildy: number) => {
-  const { error } = await supabase
-    .from("Dispos")
-    .delete()
-    .eq("idGuildy", idGuildy);
+  await supabase.from("Dispos").delete().eq("idGuildy", idGuildy);
 };
 export const addDispoApi = async (idGuildy: number, idCreneau: number) => {
-  const { error } = await supabase
-    .from("Dispos")
-    .insert({ idGuildy, idCreneau });
+  await supabase.from("Dispos").insert({ idGuildy, idCreneau });
 };

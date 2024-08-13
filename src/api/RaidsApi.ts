@@ -27,7 +27,7 @@ export const useRaidsHook = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return { raids };
 };
@@ -54,7 +54,7 @@ export const useRaidPersoHookFor = (idPerso: number) => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return { raidArray };
 };
@@ -80,7 +80,7 @@ export const useRaidPersoHook = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return { raidData };
 };
