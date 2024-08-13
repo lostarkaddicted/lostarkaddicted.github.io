@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/lostarkaddicted.github.io/static/css/main.403737a9.css",
-    "main.js": "/lostarkaddicted.github.io/static/js/main.ffbc7789.js",
-    "static/js/198.347b1a48.chunk.js": "/lostarkaddicted.github.io/static/js/198.347b1a48.chunk.js",
-    "static/js/453.fdca4069.chunk.js": "/lostarkaddicted.github.io/static/js/453.fdca4069.chunk.js",
-    "index.html": "/lostarkaddicted.github.io/index.html",
-    "main.403737a9.css.map": "/lostarkaddicted.github.io/static/css/main.403737a9.css.map",
-    "main.ffbc7789.js.map": "/lostarkaddicted.github.io/static/js/main.ffbc7789.js.map",
-    "198.347b1a48.chunk.js.map": "/lostarkaddicted.github.io/static/js/198.347b1a48.chunk.js.map",
-    "453.fdca4069.chunk.js.map": "/lostarkaddicted.github.io/static/js/453.fdca4069.chunk.js.map"
+    "main.css": "/static/css/main.403737a9.css",
+    "main.js": "/static/js/main.24c130c9.js",
+    "static/js/198.347b1a48.chunk.js": "/static/js/198.347b1a48.chunk.js",
+    "static/js/453.fdca4069.chunk.js": "/static/js/453.fdca4069.chunk.js",
+    "index.html": "/index.html",
+    "main.403737a9.css.map": "/static/css/main.403737a9.css.map",
+    "main.24c130c9.js.map": "/static/js/main.24c130c9.js.map",
+    "198.347b1a48.chunk.js.map": "/static/js/198.347b1a48.chunk.js.map",
+    "453.fdca4069.chunk.js.map": "/static/js/453.fdca4069.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.403737a9.css",
-    "static/js/main.ffbc7789.js"
+    "static/js/main.24c130c9.js"
   ]
 }
