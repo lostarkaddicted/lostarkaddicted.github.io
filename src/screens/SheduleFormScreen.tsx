@@ -95,7 +95,7 @@ export const ScheduleFormScreen = ({
       <br />
       <i>
         * Si votre pseudo ne figure pas dans la liste, veuillez contacter
-        Mélanie sur Discord
+        Mélanie
       </i>
       <br />
       <br />
