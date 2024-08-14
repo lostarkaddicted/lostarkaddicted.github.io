@@ -23,6 +23,7 @@ export const PersoFormScreen = ({
   const { guildies } = useGuildyHook();
   const { classes } = useArchetypeHook();
   // Form data
+  const [hasError, setHasError] = React.useState(false);
   const [idGuildy, setIdGuildy] = React.useState(
     persoSelected ? persoSelected.idGuildy : 0
   );
@@ -54,13 +55,27 @@ export const PersoFormScreen = ({
   };
 
   //actions
+  const computeError = () => {
+    if (name === "" || ilvl === 0 || idGuildy === 0 || idClass === 0) {
+      setHasError(true);
+      return true;
+    }
+    setHasError(false);
+    return false;
+  };
+
   const addPerso = async () => {
-    //todo : error if fields are empty
+    if (computeError() === true) {
+      return;
+    }
     await addPersoApi(name, Number(ilvl), idGuildy, idClass);
     closePersoForm();
   };
+
   const modifyPerso = async () => {
-    //todo : error if fields are empty
+    if (computeError() === true) {
+      return;
+    }
     if (persoSelected) {
       await modifyPersoApi(
         persoSelected?.id,
@@ -147,6 +162,10 @@ export const PersoFormScreen = ({
         ))}
       </Select>
       <br />
+      <br />
+      {hasError === true && (
+        <p className="error">Merci de remplir tous les champs</p>
+      )}
       <br />
       <Button
         variant="outlined"
