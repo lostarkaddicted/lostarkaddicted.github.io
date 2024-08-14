@@ -53,7 +53,12 @@ export interface PersoRaid {
 interface SimplePerso {
   name: string;
   Guildy: NameOnly;
-  Archetype: NameOnly;
+  Archetype: SimpleArchetype;
+}
+
+interface SimpleArchetype {
+  name: string;
+  is_support: boolean;
 }
 
 interface NameOnly {

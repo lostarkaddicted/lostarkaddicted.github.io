@@ -1,25 +1,21 @@
 import { Chip } from "@mui/material";
 //
 import { useRaidPersoHook, useRaidsHook } from "../api/RaidsApi";
+import { PersoRaid } from "../types/All";
 
 export const RaidsScreen = () => {
   // Remote data
   const { raids } = useRaidsHook();
   const { raidData } = useRaidPersoHook();
 
-  const getRaidData = (id: number) => {
-    let array: string[] = [];
-    raidData.forEach((raidperso) => {
-      if (raidperso.idRaid === id) {
-        array = [
-          ...array,
-          raidperso.Personnage.Guildy.name +
-            " - " +
-            raidperso.Personnage.Archetype.name,
-        ];
+  const getRaidData = (idRaid: number) => {
+    let array: PersoRaid[] = [];
+    raidData.forEach((rd) => {
+      if (rd.idRaid === idRaid) {
+        array = [...array, rd];
       }
     });
-    return { max: array.length, array };
+    return array;
   };
 
   return (
@@ -31,12 +27,21 @@ export const RaidsScreen = () => {
             <b>{r.name}</b>
           </div>
           <div className="CellCreneauGuildies">
-            {getRaidData(r.id).array.map((str) => (
+            {getRaidData(r.id).map((persoRaid) => (
               <Chip
-                label={str}
+                label={
+                  persoRaid.Personnage.Guildy.name +
+                  " - " +
+                  persoRaid.Personnage.Archetype.name
+                }
                 size="small"
                 variant={"outlined"}
                 className="Chip"
+                color={
+                  persoRaid.Personnage.Archetype.is_support
+                    ? "primary"
+                    : "default"
+                }
               />
             ))}
           </div>

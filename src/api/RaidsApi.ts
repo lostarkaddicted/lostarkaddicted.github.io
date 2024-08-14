@@ -65,7 +65,9 @@ export const useRaidPersoHook = () => {
   const fetchData = async () => {
     let { data, error } = await supabase
       .from("RaidPerso")
-      .select("*, Personnage ( name, Guildy (name), Archetype (name) )")
+      .select(
+        "*, Personnage ( name, Guildy (name), Archetype (name, is_support) )"
+      )
       .eq("done", "false");
 
     if (error) console.log("useRaidPersoHook - error", error);
