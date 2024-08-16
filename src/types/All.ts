@@ -48,6 +48,20 @@ export interface PersoRaid {
   Personnage: SimplePerso;
 }
 
+export interface Static {
+  id: number;
+  idPerso: number;
+  idTeam: number;
+  Personnage: SimplePerso;
+}
+
+export interface Team {
+  id: number;
+  name: string;
+  idRaid: number;
+  Raids: NameOnly;
+}
+
 // Unexported
 
 interface SimplePerso {

@@ -6,6 +6,7 @@ import { ScheduleScreen } from "./screens/ScheduleScreen";
 import { ScheduleFormScreen } from "./screens/SheduleFormScreen";
 import { RaidsScreen } from "./screens/RaidsScreen";
 import { RaidFormScreen } from "./screens/RaidFormScreen";
+import { StaticsScreen } from "./screens/StaticsScreen";
 import "./App.css";
 import { Personnage } from "./types/All";
 
@@ -72,6 +73,7 @@ function App() {
           <Tab label="Personnages" />
           <Tab label="Horaires" />
           <Tab label="Raids" />
+          <Tab label="Statics" />
         </Tabs>
       </Box>
       {tabSelected === 0 &&
@@ -103,6 +105,7 @@ function App() {
         <ScheduleFormScreen onCloseForm={closeDispoForm} />
       )}
       {tabSelected === 2 && <RaidsScreen />}
+      {tabSelected === 3 && <StaticsScreen />}
     </div>
   );
 }

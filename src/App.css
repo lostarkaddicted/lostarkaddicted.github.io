@@ -109,3 +109,38 @@
 .error {
   color: red;
 }
+
+.StaticsListScreen {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.TeamCard {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  max-width: 200px;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.TeamPersoList {
+  flex-direction: column;
+}
+
+.TeamCardRaid {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 5px;
+}
+
+.TeamCardName {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 5px;
+}
