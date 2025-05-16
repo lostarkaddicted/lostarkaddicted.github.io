@@ -25,37 +25,41 @@ export const StaticsScreen = ({ showTeamForm }: TeamListScreenProps) => {
   };
 
   return (
-    <div className="StaticsListScreen">
+    <div className="PersoListScreen">
       <br />
 
       <Fab size="small" color="primary" aria-label="add">
         <AddIcon onClick={() => showTeamForm()} />
       </Fab>
 
-      <br />
-      {teams.map((team) => (
-        <div className="TeamCard">
-          <p className="TeamCardRaid">{team.Raids.name}</p>
-          <p className="TeamCardName">{team.name}</p>
-          <div className="TeamPersoList">
-            {getTeamData(team.id).map((perso) => (
-              <Chip
-                label={
-                  perso.Personnage.Guildy.name +
-                  " - " +
-                  perso.Personnage.Archetype.name
-                }
-                size="small"
-                variant={"outlined"}
-                className="Chip"
-                color={
-                  perso.Personnage.Archetype.is_support ? "primary" : "default"
-                }
-              />
-            ))}
+      <div className="StaticsListScreen">
+        <br />
+        {teams.map((team) => (
+          <div className="TeamCard">
+            <p className="TeamCardRaid">{team.Raids.name}</p>
+            <p className="TeamCardName">{team.name}</p>
+            <div className="TeamPersoList">
+              {getTeamData(team.id).map((perso) => (
+                <Chip
+                  label={
+                    perso.Personnage.Guildy.name +
+                    " - " +
+                    perso.Personnage.Archetype.name
+                  }
+                  size="small"
+                  variant={"outlined"}
+                  className="Chip"
+                  color={
+                    perso.Personnage.Archetype.is_support
+                      ? "primary"
+                      : "default"
+                  }
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
