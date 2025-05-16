@@ -25,7 +25,7 @@ export const PersoListScreen = ({
   const [listToDisplay, setListToDisplay] = useState<Personnage[]>([]);
   const [selectedGuildy, setSelectedGuildy] = useState(0);
   const [minIlvl, setMinIlvl] = useState(0);
-  const lvls = [1600, 1610, 1620, 1630];
+  const lvls = [1670, 1680, 1690, 1700, 1710, 1720];
 
   useEffect(() => {
     if (persos) {
