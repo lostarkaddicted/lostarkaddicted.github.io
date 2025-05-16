@@ -71,7 +71,7 @@ function App() {
           aria-label="basic tabs example"
         >
           <Tab label="Personnages" />
-          <Tab label="Horaires" />
+          {/*<Tab label="Horaires" />*/}
           <Tab label="Raids" />
           <Tab label="Statics" />
         </Tabs>
@@ -98,14 +98,16 @@ function App() {
             persoSelected={persoSelected}
           />
         )}
+      {/* 
       {tabSelected === 1 && isDisFormShown === false && (
         <ScheduleScreen openDispoForm={openDispoForm} />
       )}
       {tabSelected === 1 && isDisFormShown === true && (
         <ScheduleFormScreen onCloseForm={closeDispoForm} />
       )}
-      {tabSelected === 2 && <RaidsScreen />}
-      {tabSelected === 3 && <StaticsScreen />}
+        */}
+      {tabSelected === 1 && <RaidsScreen />}
+      {tabSelected === 2 && <StaticsScreen />}
     </div>
   );
 }
