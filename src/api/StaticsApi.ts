@@ -57,3 +57,7 @@ export const useTeamHook = () => {
 
   return { teams };
 };
+
+export const addTeamApi = async (name: string, idRaid: number) => {
+  const { error } = await supabase.from("Teams").insert({ name, idRaid });
+};

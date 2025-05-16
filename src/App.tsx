@@ -2,25 +2,24 @@ import { Box, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import { PersoListScreen } from "./screens/PersoListScreen";
 import { PersoFormScreen } from "./screens/PersoFormScreen";
-import { ScheduleScreen } from "./screens/ScheduleScreen";
-import { ScheduleFormScreen } from "./screens/SheduleFormScreen";
 import { RaidsScreen } from "./screens/RaidsScreen";
 import { RaidFormScreen } from "./screens/RaidFormScreen";
 import { StaticsScreen } from "./screens/StaticsScreen";
 import "./App.css";
 import { Personnage } from "./types/All";
+import { StaticFormScreen } from "./screens/StaticFormScreen";
 
 function App() {
   const [tabSelected, setTabSelected] = useState(0);
   const [isPersoFormShown, setIsPersoFormShown] = useState(false);
-  const [isDisFormShown, setIsDispoFormShown] = useState(false);
+  const [isTeamFormShown, setIsTeamFormShown] = useState(false);
   const [isRaidFormShown, setIsRaidFormShown] = useState(false);
   const [persoSelected, setPersoSelected] = useState<Personnage>();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabSelected(newValue);
     setIsPersoFormShown(false);
-    setIsDispoFormShown(false);
+    setIsTeamFormShown(false);
     setIsRaidFormShown(false);
     setPersoSelected(undefined);
   };
@@ -47,12 +46,12 @@ function App() {
     setIsPersoFormShown(false);
   };
 
-  const closeDispoForm = () => {
-    setIsDispoFormShown(false);
+  const closeTeamForm = () => {
+    setIsTeamFormShown(false);
   };
 
-  const openDispoForm = () => {
-    setIsDispoFormShown(true);
+  const openTeamForm = () => {
+    setIsTeamFormShown(true);
   };
 
   return (
@@ -107,7 +106,12 @@ function App() {
       )}
         */}
       {tabSelected === 1 && <RaidsScreen />}
-      {tabSelected === 2 && <StaticsScreen />}
+      {tabSelected === 2 && isTeamFormShown === false && (
+        <StaticsScreen showTeamForm={openTeamForm} />
+      )}
+      {tabSelected === 2 && isTeamFormShown === true && (
+        <StaticFormScreen closeTeamForm={closeTeamForm} />
+      )}
     </div>
   );
 }

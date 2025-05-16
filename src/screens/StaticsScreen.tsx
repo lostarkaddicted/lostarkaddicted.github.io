@@ -1,10 +1,15 @@
 import React from "react";
-import { Chip } from "@mui/material";
+import { Button, Chip, Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 import { useStaticHook, useTeamHook } from "../api/StaticsApi";
-import { Static } from "../types/All";
+import { Static, Team } from "../types/All";
 
-export const StaticsScreen = () => {
+interface TeamListScreenProps {
+  showTeamForm: (team?: Team) => void;
+}
+
+export const StaticsScreen = ({ showTeamForm }: TeamListScreenProps) => {
   // Remote data
   const { staticData } = useStaticHook();
   const { teams } = useTeamHook();
@@ -21,6 +26,12 @@ export const StaticsScreen = () => {
 
   return (
     <div className="StaticsListScreen">
+      <br />
+
+      <Fab size="small" color="primary" aria-label="add">
+        <AddIcon onClick={() => showTeamForm()} />
+      </Fab>
+
       <br />
       {teams.map((team) => (
         <div className="TeamCard">
