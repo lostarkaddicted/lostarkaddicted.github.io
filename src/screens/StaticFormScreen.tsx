@@ -5,8 +5,13 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 //
-import { useRaidsHook } from "../api/RaidsApi";
+import { useRaidPersoHook, useRaidsHook } from "../api/RaidsApi";
 import { addTeamApi } from "../api/StaticsApi";
+import {
+  ListPersoChip,
+  ListPersoChipForRaid,
+} from "../components/ListPersoChip";
+import { PersoRaid } from "../types/All";
 
 interface TeamFormScreenProps {
   closeTeamForm: () => void;
@@ -15,10 +20,12 @@ interface TeamFormScreenProps {
 export const StaticFormScreen = ({ closeTeamForm }: TeamFormScreenProps) => {
   // Remote data
   const { raids } = useRaidsHook();
+  const { raidData } = useRaidPersoHook();
   // Form data
   const [hasError, setHasError] = React.useState(false);
   const [name, setName] = React.useState("");
   const [idRaid, setIdRaid] = React.useState(0);
+  const [selectedPerso, setSelectedPerso] = React.useState<PersoRaid[]>([]);
 
   // Form Handlers
   const handleRaidChange = (event: SelectChangeEvent) => {
@@ -47,13 +54,21 @@ export const StaticFormScreen = ({ closeTeamForm }: TeamFormScreenProps) => {
     closeTeamForm();
   };
 
+  const clickDispoPersoChip = (perso: PersoRaid) => {
+    setSelectedPerso([...selectedPerso, perso]);
+  };
+
+  const clickSelectedPersoChip = (perso: PersoRaid) => {
+    const newArray = selectedPerso.filter((p) => p.id !== perso.id);
+    setSelectedPerso(newArray);
+  };
+
   return (
     <Box
       sx={{
         justifyContent: "flex-start",
         alignItems: "flex-start",
         flexDirection: "column",
-        //backgroundColor: "yellow",
         marginTop: 2,
       }}
     >
@@ -88,6 +103,30 @@ export const StaticFormScreen = ({ closeTeamForm }: TeamFormScreenProps) => {
         value={name}
         onChange={handleNameChange}
       />
+      <br />
+      <br />
+      <h3>{"Personnages sélectionnés"}</h3>
+      <br />
+      <br />
+      <ListPersoChip
+        persoList={selectedPerso}
+        onTapPerso={clickSelectedPersoChip}
+      />
+      <br />
+      <br />
+      <h3>{"Personnages dispo"}</h3>
+      {idRaid === 0 && (
+        <i>Choisir le raid pour voir les personnages s'afficher</i>
+      )}
+      {idRaid !== 0 && (
+        <ListPersoChipForRaid
+          persoList={raidData}
+          raidID={idRaid}
+          onTapPerso={clickDispoPersoChip}
+        />
+      )}
+      <br />
+      <br />
       <br />
       <br />
       <Button
