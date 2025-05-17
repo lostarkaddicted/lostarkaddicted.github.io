@@ -30,7 +30,11 @@ export const useStaticHook = () => {
     fetchData();
   }, []);
 
-  return { staticData };
+  const refresh = () => {
+    fetchData();
+  };
+
+  return { staticData, refresh };
 };
 
 export const useTeamHook = () => {
@@ -39,6 +43,10 @@ export const useTeamHook = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const refresh = () => {
+    fetchData();
+  };
 
   const fetchData = async () => {
     let { data, error } = await supabase
@@ -55,7 +63,7 @@ export const useTeamHook = () => {
     }
   };
 
-  return { teams };
+  return { teams, refresh };
 };
 
 export const addTeamApi = async (name: string, idRaid: number) => {
@@ -67,8 +75,13 @@ export const getTeamIdApi = async (name: string) => {
   return data;
 };
 
-export const setMemberToTeam = async (teamId: number, perso: PersoRaid) => {
+export const setMemberToTeamApi = async (teamId: number, perso: PersoRaid) => {
   const { error } = await supabase
     .from("Statics")
     .insert({ idPerso: perso.idPerso, idTeam: teamId });
+};
+
+export const deleteTeamApi = async (idTeam: number) => {
+  await supabase.from("Statics").delete().eq("idTeam", idTeam);
+  await supabase.from("Teams").delete().eq("id", idTeam);
 };

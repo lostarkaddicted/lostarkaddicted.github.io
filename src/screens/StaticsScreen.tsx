@@ -1,8 +1,10 @@
 import React from "react";
-import { Button, Chip, Fab } from "@mui/material";
+import { Chip, Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import { useStaticHook, useTeamHook } from "../api/StaticsApi";
+import { deleteTeamApi, useStaticHook, useTeamHook } from "../api/StaticsApi";
 import { Static, Team } from "../types/All";
 
 interface TeamListScreenProps {
@@ -12,7 +14,7 @@ interface TeamListScreenProps {
 export const StaticsScreen = ({ showTeamForm }: TeamListScreenProps) => {
   // Remote data
   const { staticData } = useStaticHook();
-  const { teams } = useTeamHook();
+  const { teams, refresh } = useTeamHook();
 
   const getTeamData = (idTeam: number) => {
     let array: Static[] = [];
@@ -22,6 +24,11 @@ export const StaticsScreen = ({ showTeamForm }: TeamListScreenProps) => {
       }
     });
     return array;
+  };
+
+  const onDeleteTeamClick = async (idTeam: number) => {
+    await deleteTeamApi(idTeam);
+    refresh();
   };
 
   return (
@@ -57,6 +64,12 @@ export const StaticsScreen = ({ showTeamForm }: TeamListScreenProps) => {
                 />
               ))}
             </div>
+            <IconButton
+              aria-label="delete"
+              onClick={() => onDeleteTeamClick(team.id)}
+            >
+              <DeleteIcon />
+            </IconButton>
           </div>
         ))}
       </div>

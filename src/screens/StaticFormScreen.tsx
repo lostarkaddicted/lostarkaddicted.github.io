@@ -6,7 +6,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 //
 import { useRaidPersoHook, useRaidsHook } from "../api/RaidsApi";
-import { addTeamApi, getTeamIdApi, setMemberToTeam } from "../api/StaticsApi";
+import {
+  addTeamApi,
+  getTeamIdApi,
+  setMemberToTeamApi,
+} from "../api/StaticsApi";
 import {
   ListPersoChip,
   ListPersoChipForRaid,
@@ -59,7 +63,7 @@ export const StaticFormScreen = ({ closeTeamForm }: TeamFormScreenProps) => {
       console.log({ teamId });
       // Enregistrer les perso pour la team (dans la table static)
       selectedPerso.forEach(async (perso) => {
-        await setMemberToTeam(teamId, perso);
+        await setMemberToTeamApi(teamId, perso);
       });
     }
     // Fermer la page
