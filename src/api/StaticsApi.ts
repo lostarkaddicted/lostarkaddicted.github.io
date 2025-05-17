@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { Static, Team } from "../types/All";
+import { PersoRaid, Static, Team } from "../types/All";
 
 const url = process.env.REACT_APP_SUPA_URL ?? "";
 const key = process.env.REACT_APP_SUPA_KEY ?? "";
@@ -60,4 +60,15 @@ export const useTeamHook = () => {
 
 export const addTeamApi = async (name: string, idRaid: number) => {
   const { error } = await supabase.from("Teams").insert({ name, idRaid });
+};
+
+export const getTeamIdApi = async (name: string) => {
+  let { data, error } = await supabase.from("Teams").select().eq("name", name);
+  return data;
+};
+
+export const setMemberToTeam = async (teamId: number, perso: PersoRaid) => {
+  const { error } = await supabase
+    .from("Statics")
+    .insert({ idPerso: perso.idPerso, idTeam: teamId });
 };
