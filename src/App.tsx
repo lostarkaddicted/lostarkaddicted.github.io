@@ -6,7 +6,6 @@ import { RaidsScreen } from "./screens/RaidsScreen";
 import { RaidFormScreen } from "./screens/RaidFormScreen";
 import { StaticsScreen } from "./screens/StaticsScreen";
 import "./App.css";
-import { Personnage } from "./types/All";
 import { StaticFormScreen } from "./screens/StaticFormScreen";
 //
 import {
@@ -15,22 +14,6 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-
-/*
-function AppFirst({ tabSelectedProps }: AppFirstProps) {
-  return (
-    <div className="App">
-      {tabSelected === 0 &&
-        persoSelected !== undefined &&
-        isRaidFormShown === true && (
-          <RaidFormScreen
-            closeRaidForm={closeRaidForm}
-            persoSelected={persoSelected}
-          />
-        )}
-    </div>
-  );
-}*/
 
 const AppHeader = () => {
   //
@@ -88,6 +71,7 @@ const App: React.FC = () => {
         <Route path="/personnages" element={<PersoListScreen />} />
         <Route path="/personnages/create" element={<PersoFormScreen />} />
         <Route path="/personnages/edit/:id" element={<PersoFormScreen />} />
+        <Route path="/personnages/editraid/:id" element={<RaidFormScreen />} />
         <Route path="/raids" element={<RaidsScreen />} />
         <Route path="/statics" element={<StaticsScreen />} />
         <Route path="/statics/create" element={<StaticFormScreen />} />

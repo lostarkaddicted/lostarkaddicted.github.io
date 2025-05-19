@@ -64,7 +64,6 @@ export const StaticFormScreen = () => {
     const team = await getTeamIdApi(name);
     if (team && team.length > 0) {
       const teamId = team[0].id;
-      console.log({ teamId });
       // Enregistrer les perso pour la team (dans la table static)
       selectedPerso.forEach(async (perso) => {
         await setMemberToTeamApi(teamId, perso);

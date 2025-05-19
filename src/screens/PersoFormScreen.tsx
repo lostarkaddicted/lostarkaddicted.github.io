@@ -35,7 +35,6 @@ export const PersoFormScreen = () => {
   const setUpData = async () => {
     if (id) {
       const perso = await getPersobyIdApi(Number(id));
-      console.log({ perso });
       setPersoSelected(perso);
       setIdClass(perso.idClass);
       setIdGuildy(perso.idGuildy);

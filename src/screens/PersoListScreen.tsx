@@ -38,8 +38,9 @@ export const PersoListScreen = () => {
   };
 
   const showRaidForm = (item: Personnage) => {
-    console.log("showRaidForm");
-    // todo
+    if (item) {
+      navigate("/personnages/editraid/" + item.id);
+    }
   };
 
   const onModifyPersoClick = (item: Personnage) => {

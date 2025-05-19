@@ -1,28 +1,25 @@
 import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+//
 import Checkbox from "@mui/material/Checkbox";
 import { Button, FormControlLabel, Link } from "@mui/material";
-
+//
 import {
   addRaidApi,
   removeRaidForPerso,
   useRaidPersoHookFor,
   useRaidsHook,
 } from "../api/RaidsApi";
-import { Personnage, Raid } from "../types/All";
+import { Raid } from "../types/All";
 
-interface RaidFormScreenProps {
-  closeRaidForm: () => void;
-  persoSelected: Personnage;
-}
-
-export const RaidFormScreen = ({
-  closeRaidForm,
-  persoSelected,
-}: RaidFormScreenProps) => {
+export const RaidFormScreen = () => {
+  //
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const persoId = id ? Number(id) : 0;
   //remote data
   const { raids } = useRaidsHook();
-  const { raidArray } = useRaidPersoHookFor(persoSelected.id);
-  console.log({ raidArray });
+  const { raidArray } = useRaidPersoHookFor(persoId);
   //
   const [checkedRaids, setCheckedRaids] = React.useState<number[]>([]);
 
@@ -39,6 +36,10 @@ export const RaidFormScreen = ({
       array = [...array, creneau.id];
       setCheckedRaids(array);
     }
+  };
+
+  const closeRaidForm = () => {
+    navigate("/personnages");
   };
 
   const raidsList = raids.map((r) => {
@@ -58,10 +59,10 @@ export const RaidFormScreen = ({
 
   const onAddRaid = async () => {
     // remove previous raids for this perso
-    await removeRaidForPerso(persoSelected.id);
+    await removeRaidForPerso(persoId);
     // Save new raids
     checkedRaids.forEach(async (idRaid) => {
-      await addRaidApi(persoSelected.id, idRaid);
+      await addRaidApi(persoId, idRaid);
     });
     // close form
     closeRaidForm();
@@ -69,8 +70,10 @@ export const RaidFormScreen = ({
 
   return (
     <div className="DispoForm">
-      <h2>{"Saisir les raids de " + persoSelected.name}</h2>
+      <h2>{"Saisir les raids"}</h2>
       <div className="CreneauList">{raidsList}</div>
+      <br />
+      <br />
       <Button variant="outlined" onClick={onAddRaid}>
         {"Sauvegarder"}
       </Button>
