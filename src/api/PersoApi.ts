@@ -56,5 +56,7 @@ export const modifyPersoApi = async (
 };
 
 export const deletePersoApi = async (id: number) => {
-  const { error } = await supabase.from("Personnage").delete().eq("id", id);
+  await supabase.from("RaidPerso").delete().eq("idPerso", id);
+  await supabase.from("Statics").delete().eq("idPerso", id);
+  await supabase.from("Personnage").delete().eq("id", id);
 };
