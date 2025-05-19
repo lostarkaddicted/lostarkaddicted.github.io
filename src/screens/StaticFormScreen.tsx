@@ -83,86 +83,88 @@ export const StaticFormScreen = () => {
   };
 
   return (
-    <Box
-      sx={{
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexDirection: "column",
-        marginTop: 2,
-      }}
-    >
-      <h2>{"Formulaire de création d'un groupe"}</h2>
-      <Select
-        id="demo-simple-select"
-        value={idRaid.toString()}
-        label="Pseudo"
-        onChange={handleRaidChange}
-        variant="filled"
-        sx={{ minWidth: 200 }}
+    <div className="DispoForm">
+      <Box
+        sx={{
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          flexDirection: "column",
+          marginTop: 2,
+        }}
       >
-        <MenuItem value={0}>
-          <em>Pour le raid</em>
-        </MenuItem>
-        {raids.map((raid) => (
-          <MenuItem key={raid.id} value={raid.id}>
-            {raid.name}
+        <h2>{"Formulaire de création d'un groupe"}</h2>
+        <Select
+          id="demo-simple-select"
+          value={idRaid.toString()}
+          label="Pseudo"
+          onChange={handleRaidChange}
+          variant="filled"
+          sx={{ minWidth: 200 }}
+        >
+          <MenuItem value={0}>
+            <em>Pour le raid</em>
           </MenuItem>
-        ))}
-      </Select>
-      <br />
-      <i>
-        * Si le raid ne figure pas dans la liste, veuillez contacter Mélanie
-      </i>
-      <br />
-      <br />
-      <TextField
-        id="filled-basic"
-        label="Nom du groupe"
-        variant="filled"
-        value={name}
-        onChange={handleNameChange}
-      />
-      <br />
-      <br />
-      <h3>{"Personnages sélectionnés"}</h3>
-      <br />
-      <br />
-      <ListPersoChip
-        persoList={selectedPerso}
-        onTapPerso={clickSelectedPersoChip}
-      />
-      <br />
-      <br />
-      <h3>{"Personnages dispo"}</h3>
-      {idRaid === 0 && (
-        <i>Choisir le raid pour voir les personnages s'afficher</i>
-      )}
-      {idRaid !== 0 && (
-        <ListPersoChipForRaid
-          persoList={raidData}
-          raidID={idRaid}
-          onTapPerso={clickDispoPersoChip}
+          {raids.map((raid) => (
+            <MenuItem key={raid.id} value={raid.id}>
+              {raid.name}
+            </MenuItem>
+          ))}
+        </Select>
+        <br />
+        <i>
+          * Si le raid ne figure pas dans la liste, veuillez contacter Mélanie
+        </i>
+        <br />
+        <br />
+        <TextField
+          id="filled-basic"
+          label="Nom du groupe"
+          variant="filled"
+          value={name}
+          onChange={handleNameChange}
         />
-      )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <Button
-        variant="outlined"
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={addTeam}
-      >
-        {"Ajouter"}
-      </Button>
-      <br />
-      {hasError === true && (
-        <p className="error">Merci de remplir tous les champs</p>
-      )}
-      <br />
-      <Link component="button" variant="body2" onClick={closeTeamForm}>
-        Retour à la liste
-      </Link>
-    </Box>
+        <br />
+        <br />
+        <h3>{"Personnages sélectionnés"}</h3>
+        <br />
+        <br />
+        <ListPersoChip
+          persoList={selectedPerso}
+          onTapPerso={clickSelectedPersoChip}
+        />
+        <br />
+        <br />
+        <h3>{"Personnages dispo"}</h3>
+        {idRaid === 0 && (
+          <i>Choisir le raid pour voir les personnages s'afficher</i>
+        )}
+        {idRaid !== 0 && (
+          <ListPersoChipForRaid
+            persoList={raidData}
+            raidID={idRaid}
+            onTapPerso={clickDispoPersoChip}
+          />
+        )}
+        <br />
+        <br />
+        <br />
+        <br />
+        <Button
+          variant="outlined"
+          startIcon={<AddCircleOutlineIcon />}
+          onClick={addTeam}
+        >
+          {"Ajouter"}
+        </Button>
+        <br />
+        {hasError === true && (
+          <p className="error">Merci de remplir tous les champs</p>
+        )}
+        <br />
+        <Link component="button" variant="body2" onClick={closeTeamForm}>
+          Retour à la liste
+        </Link>
+      </Box>
+    </div>
   );
 };

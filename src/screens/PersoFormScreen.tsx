@@ -99,96 +99,100 @@ export const PersoFormScreen = () => {
   };
 
   return (
-    <Box
-      sx={{
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexDirection: "column",
-        //backgroundColor: "yellow",
-        marginTop: 2,
-      }}
-    >
-      <h2>
-        {persoSelected ? "Modifier un perso" : "Formulaire d'ajout d'un perso"}
-      </h2>
-      <Select
-        id="demo-simple-select"
-        value={idGuildy.toString()}
-        label="Pseudo"
-        onChange={handleGuildyChange}
-        variant="filled"
-        sx={{ minWidth: 200 }}
+    <div className="DispoForm">
+      <Box
+        sx={{
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          flexDirection: "column",
+          //backgroundColor: "yellow",
+          marginTop: 2,
+        }}
       >
-        <MenuItem value={0}>
-          <em>Votre pseudo</em>
-        </MenuItem>
-        {guildies.map((member) => (
-          <MenuItem key={member.id} value={member.id}>
-            {member.name}
+        <h2>
+          {persoSelected
+            ? "Modifier un perso"
+            : "Formulaire d'ajout d'un perso"}
+        </h2>
+        <Select
+          id="demo-simple-select"
+          value={idGuildy.toString()}
+          label="Pseudo"
+          onChange={handleGuildyChange}
+          variant="filled"
+          sx={{ minWidth: 200 }}
+        >
+          <MenuItem value={0}>
+            <em>Votre pseudo</em>
           </MenuItem>
-        ))}
-      </Select>
-      <br />
-      <i>
-        * Si votre pseudo ne figure pas dans la liste, veuillez contacter
-        Mélanie
-      </i>
-      <br />
-      <br />
-      <TextField
-        id="filled-basic"
-        label="Perso"
-        variant="filled"
-        value={name}
-        onChange={handleNameChange}
-      />
-      <br />
-      <br />
-      <TextField
-        id="filled-basic"
-        label="ilvl"
-        variant="filled"
-        type="number"
-        value={ilvl}
-        onChange={handleLevelChange}
-      />
-      <br />
-      <br />
-      <Select
-        id="demo-simple-select"
-        value={idClass.toString()}
-        label="Pseudo"
-        onChange={handleClassChange}
-        variant="filled"
-        sx={{ minWidth: 200 }}
-      >
-        <MenuItem value={0}>
-          <em>Votre classe</em>
-        </MenuItem>
-        {classes.map((member) => (
-          <MenuItem key={member.id} value={member.id}>
-            {member.name}
+          {guildies.map((member) => (
+            <MenuItem key={member.id} value={member.id}>
+              {member.name}
+            </MenuItem>
+          ))}
+        </Select>
+        <br />
+        <i>
+          * Si votre pseudo ne figure pas dans la liste, veuillez contacter
+          Mélanie
+        </i>
+        <br />
+        <br />
+        <TextField
+          id="filled-basic"
+          label="Perso"
+          variant="filled"
+          value={name}
+          onChange={handleNameChange}
+        />
+        <br />
+        <br />
+        <TextField
+          id="filled-basic"
+          label="ilvl"
+          variant="filled"
+          type="number"
+          value={ilvl}
+          onChange={handleLevelChange}
+        />
+        <br />
+        <br />
+        <Select
+          id="demo-simple-select"
+          value={idClass.toString()}
+          label="Pseudo"
+          onChange={handleClassChange}
+          variant="filled"
+          sx={{ minWidth: 200 }}
+        >
+          <MenuItem value={0}>
+            <em>Votre classe</em>
           </MenuItem>
-        ))}
-      </Select>
-      <br />
-      <br />
-      {hasError === true && (
-        <p className="error">Merci de remplir tous les champs</p>
-      )}
-      <br />
-      <Button
-        variant="outlined"
-        startIcon={persoSelected ? null : <AddCircleOutlineIcon />}
-        onClick={persoSelected ? modifyPerso : addPerso}
-      >
-        {persoSelected ? "Modifier" : "Ajouter"}
-      </Button>
-      <br />
-      <br />
-      <Link component="button" variant="body2" onClick={closePersoForm}>
-        Retour à la liste
-      </Link>
-    </Box>
+          {classes.map((member) => (
+            <MenuItem key={member.id} value={member.id}>
+              {member.name}
+            </MenuItem>
+          ))}
+        </Select>
+        <br />
+        <br />
+        {hasError === true && (
+          <p className="error">Merci de remplir tous les champs</p>
+        )}
+        <br />
+        <Button
+          variant="outlined"
+          startIcon={persoSelected ? null : <AddCircleOutlineIcon />}
+          onClick={persoSelected ? modifyPerso : addPerso}
+        >
+          {persoSelected ? "Modifier" : "Ajouter"}
+        </Button>
+        <br />
+        <br />
+        <Link component="button" variant="body2" onClick={closePersoForm}>
+          Retour à la liste
+        </Link>
+      </Box>
+    </div>
   );
 };
