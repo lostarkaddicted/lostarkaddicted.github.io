@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+//
 import { Button, Chip } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import IconButton from "@mui/material/IconButton";
@@ -10,15 +12,9 @@ import { usePersosHook, deletePersoApi } from "../api/PersoApi";
 import { Personnage } from "../types/All";
 import { useGuildyHook } from "../api/GuildyApi";
 
-interface PersoListScreenProps {
-  showPersoForm: (item?: Personnage) => void;
-  showRaidForm: (item: Personnage) => void;
-}
-
-export const PersoListScreen = ({
-  showPersoForm,
-  showRaidForm,
-}: PersoListScreenProps) => {
+export const PersoListScreen = () => {
+  const navigate = useNavigate();
+  //
   const [count, setCount] = useState(0);
   const { persos } = usePersosHook(count);
   const { guildies } = useGuildyHook();
@@ -32,6 +28,20 @@ export const PersoListScreen = ({
       setListToDisplay(persos);
     }
   }, [persos]);
+
+  const showPersoForm = (item?: Personnage) => {
+    if (item) {
+      console.log("showPersoForm with param");
+      // todo
+    } else {
+      navigate("/personnages/create");
+    }
+  };
+
+  const showRaidForm = (item: Personnage) => {
+    console.log("showRaidForm");
+    // todo
+  };
 
   const onModifyPersoClick = (item: Personnage) => {
     showPersoForm(item);

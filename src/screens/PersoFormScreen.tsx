@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+//
 import { Box, TextField, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -11,14 +13,12 @@ import { useArchetypeHook } from "../api/ArchetypeApi";
 import { addPersoApi, modifyPersoApi } from "../api/PersoApi";
 
 interface PersoFormScreenProps {
-  closePersoForm: () => void;
   persoSelected?: Personnage;
 }
 
-export const PersoFormScreen = ({
-  closePersoForm,
-  persoSelected,
-}: PersoFormScreenProps) => {
+export const PersoFormScreen = ({ persoSelected }: PersoFormScreenProps) => {
+  //
+  const navigate = useNavigate();
   // Remote data
   const { guildies } = useGuildyHook();
   const { classes } = useArchetypeHook();
@@ -86,6 +86,10 @@ export const PersoFormScreen = ({
       );
     }
     closePersoForm();
+  };
+
+  const closePersoForm = () => {
+    navigate("/personnages");
   };
 
   return (

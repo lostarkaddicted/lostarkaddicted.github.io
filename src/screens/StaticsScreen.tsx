@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+//
 import { Chip, Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
@@ -7,11 +9,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteTeamApi, useStaticHook, useTeamHook } from "../api/StaticsApi";
 import { Static, Team } from "../types/All";
 
-interface TeamListScreenProps {
-  showTeamForm: (team?: Team) => void;
-}
-
-export const StaticsScreen = ({ showTeamForm }: TeamListScreenProps) => {
+export const StaticsScreen = () => {
+  //
+  const navigate = useNavigate();
   // Remote data
   const { staticData } = useStaticHook();
   const { teams, refresh } = useTeamHook();
@@ -29,6 +29,10 @@ export const StaticsScreen = ({ showTeamForm }: TeamListScreenProps) => {
   const onDeleteTeamClick = async (idTeam: number) => {
     await deleteTeamApi(idTeam);
     refresh();
+  };
+
+  const showTeamForm = () => {
+    navigate("/statics/create");
   };
 
   return (

@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+//
 import { Box, TextField, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -17,11 +19,9 @@ import {
 } from "../components/ListPersoChip";
 import { PersoRaid } from "../types/All";
 
-interface TeamFormScreenProps {
-  closeTeamForm: () => void;
-}
-
-export const StaticFormScreen = ({ closeTeamForm }: TeamFormScreenProps) => {
+export const StaticFormScreen = () => {
+  //
+  const navigate = useNavigate();
   // Remote data
   const { raids } = useRaidsHook();
   const { raidData } = useRaidPersoHook();
@@ -38,6 +38,10 @@ export const StaticFormScreen = ({ closeTeamForm }: TeamFormScreenProps) => {
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
+  };
+
+  const closeTeamForm = () => {
+    navigate("/statics");
   };
 
   //actions
