@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 //
 import { Box, TextField, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -7,35 +7,42 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 //
-import { Personnage } from "../types/All";
 import { useGuildyHook } from "../api/GuildyApi";
 import { useArchetypeHook } from "../api/ArchetypeApi";
-import { addPersoApi, modifyPersoApi } from "../api/PersoApi";
+import { addPersoApi, modifyPersoApi, getPersobyIdApi } from "../api/PersoApi";
+import { Personnage } from "../types/All";
 
-interface PersoFormScreenProps {
-  persoSelected?: Personnage;
-}
-
-export const PersoFormScreen = ({ persoSelected }: PersoFormScreenProps) => {
+export const PersoFormScreen = () => {
   //
   const navigate = useNavigate();
+  const { id } = useParams();
   // Remote data
   const { guildies } = useGuildyHook();
   const { classes } = useArchetypeHook();
   // Form data
+  const [persoSelected, setPersoSelected] = React.useState<Personnage>();
   const [hasError, setHasError] = React.useState(false);
-  const [idGuildy, setIdGuildy] = React.useState(
-    persoSelected ? persoSelected.idGuildy : 0
-  );
-  const [idClass, setIdClass] = React.useState(
-    persoSelected ? persoSelected.idClass : 0
-  );
-  const [name, setName] = React.useState(
-    persoSelected ? persoSelected.name : ""
-  );
-  const [ilvl, setIlvl] = React.useState(
-    persoSelected ? persoSelected.ilvl : 0
-  );
+  const [idGuildy, setIdGuildy] = React.useState(0);
+  const [idClass, setIdClass] = React.useState(0);
+  const [name, setName] = React.useState("");
+  const [ilvl, setIlvl] = React.useState(0);
+
+  // Set inital data
+  useEffect(() => {
+    setUpData();
+  }, [id]);
+
+  const setUpData = async () => {
+    if (id) {
+      const perso = await getPersobyIdApi(Number(id));
+      console.log({ perso });
+      setPersoSelected(perso);
+      setIdClass(perso.idClass);
+      setIdGuildy(perso.idGuildy);
+      setName(perso.name);
+      setIlvl(perso.ilvl);
+    }
+  };
 
   // Form Handlers
   const handleGuildyChange = (event: SelectChangeEvent) => {

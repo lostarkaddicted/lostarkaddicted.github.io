@@ -84,8 +84,10 @@ const App: React.FC = () => {
       <AppHeader />
 
       <Routes>
+        <Route path="/" element={<PersoListScreen />} />
         <Route path="/personnages" element={<PersoListScreen />} />
         <Route path="/personnages/create" element={<PersoFormScreen />} />
+        <Route path="/personnages/edit/:id" element={<PersoFormScreen />} />
         <Route path="/raids" element={<RaidsScreen />} />
         <Route path="/statics" element={<StaticsScreen />} />
         <Route path="/statics/create" element={<StaticFormScreen />} />

@@ -31,8 +31,7 @@ export const PersoListScreen = () => {
 
   const showPersoForm = (item?: Personnage) => {
     if (item) {
-      console.log("showPersoForm with param");
-      // todo
+      navigate("/personnages/edit/" + item.id);
     } else {
       navigate("/personnages/create");
     }

@@ -31,6 +31,14 @@ export const usePersosHook = (count: number) => {
   return { persos };
 };
 
+export const getPersobyIdApi = async (id: number) => {
+  let { data } = await supabase.from("Personnage").select("*").eq("id", id);
+  console.log({ data });
+  if (data && data.length > 0) {
+    return data[0];
+  }
+};
+
 export const addPersoApi = async (
   name: string,
   ilvl: number,
