@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { deleteTeamApi, useStaticHook, useTeamHook } from "../api/StaticsApi";
-import { Static, Team } from "../types/All";
+import { Static } from "../types/All";
 
 export const StaticsScreen = () => {
   //

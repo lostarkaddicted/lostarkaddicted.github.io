@@ -67,16 +67,16 @@ export const useTeamHook = () => {
 };
 
 export const addTeamApi = async (name: string, idRaid: number) => {
-  const { error } = await supabase.from("Teams").insert({ name, idRaid });
+  await supabase.from("Teams").insert({ name, idRaid });
 };
 
 export const getTeamIdApi = async (name: string) => {
-  let { data, error } = await supabase.from("Teams").select().eq("name", name);
+  let { data } = await supabase.from("Teams").select().eq("name", name);
   return data;
 };
 
 export const setMemberToTeamApi = async (teamId: number, perso: PersoRaid) => {
-  const { error } = await supabase
+  await supabase
     .from("Statics")
     .insert({ idPerso: perso.idPerso, idTeam: teamId });
 };

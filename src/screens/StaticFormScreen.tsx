@@ -156,6 +156,9 @@ export const StaticFormScreen = () => {
         {"Ajouter"}
       </Button>
       <br />
+      {hasError === true && (
+        <p className="error">Merci de remplir tous les champs</p>
+      )}
       <br />
       <Link component="button" variant="body2" onClick={closeTeamForm}>
         Retour à la liste

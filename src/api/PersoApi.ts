@@ -44,9 +44,7 @@ export const addPersoApi = async (
   idGuildy: number,
   idClass: number
 ) => {
-  const { error } = await supabase
-    .from("Personnage")
-    .insert({ name, ilvl, idGuildy, idClass });
+  await supabase.from("Personnage").insert({ name, ilvl, idGuildy, idClass });
 };
 
 export const modifyPersoApi = async (
@@ -56,7 +54,7 @@ export const modifyPersoApi = async (
   idGuildy: number,
   idClass: number
 ) => {
-  const { error } = await supabase
+  await supabase
     .from("Personnage")
     .update({ name, ilvl, idGuildy, idClass })
     .eq("id", id);
