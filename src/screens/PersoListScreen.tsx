@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 //
-import { Button, Chip } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -142,9 +142,13 @@ export const PersoListScreen = () => {
         Pour retrouver vos personnages plus facilement, cliquez sur votre pseudo
         :
       </p>
-      <div className="GuildyListTag">{tagList}</div>
+      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+        {tagList}
+      </Stack>
       <p>Pour trier par ilvl, cliquez le minimum que vous voulez voir :</p>
-      <div className="GuildyListTag">{lvlList}</div>
+      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+        {lvlList}
+      </Stack>
       <div className="PersoList">{listItems}</div>
     </div>
   );
