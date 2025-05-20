@@ -52,6 +52,7 @@ export interface Static {
   id: number;
   idPerso: number;
   idTeam: number;
+  Teams: SimpleTeam;
   Personnage: SimplePerso;
 }
 
@@ -63,6 +64,10 @@ export interface Team {
 }
 
 // Unexported
+
+interface SimpleTeam {
+  idRaid: number;
+}
 
 interface SimplePerso {
   name: string;

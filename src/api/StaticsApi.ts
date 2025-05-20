@@ -13,9 +13,8 @@ export const useStaticHook = () => {
     let { data, error } = await supabase
       .from("Statics")
       .select(
-        "*, Personnage ( name, Guildy (name), Archetype (name, is_support) )"
+        "*, Teams ( idRaid ), Personnage ( name, Guildy (name), Archetype (name, is_support) )"
       );
-
     if (error) console.log("useStaticHook - error", error);
     else {
       let array: Static[] = [];
@@ -44,7 +43,6 @@ export const getMembersFromTeamApi = async (idTeam: number) => {
       "*, Personnage ( name, Guildy (name), Archetype (name, is_support) )"
     )
     .eq("idTeam", idTeam);
-  console.log(data);
   return data ?? [];
 };
 

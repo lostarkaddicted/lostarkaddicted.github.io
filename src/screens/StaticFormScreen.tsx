@@ -16,12 +16,11 @@ import {
   getTeamIdApi,
   modifyTeamApi,
   setMemberToTeamApi,
+  useStaticHook,
 } from "../api/StaticsApi";
-import {
-  ListPersoChip,
-  ListPersoChipForRaid,
-} from "../components/ListPersoChip";
+import { ListPersoChip } from "../components/ListPersoChip";
 import { PersoRaid } from "../types/All";
+import { getRaidData } from "../utils/getRaidData";
 
 export const StaticFormScreen = () => {
   //
@@ -30,17 +29,46 @@ export const StaticFormScreen = () => {
   // Remote data
   const { raids } = useRaidsHook();
   const { raidData } = useRaidPersoHook();
+  const { staticData } = useStaticHook();
   // Form data
   const [hasError, setHasError] = React.useState(false);
   const [name, setName] = React.useState("");
   const [idRaid, setIdRaid] = React.useState(0);
   const [selectedPerso, setSelectedPerso] = React.useState<PersoRaid[]>([]);
+  const [availablePerso, setAvailablePerso] = React.useState<PersoRaid[]>([]);
 
   // Set inital data
   useEffect(() => {
     setUpData();
   }, [id]);
 
+  useEffect(() => {
+    if (idRaid === 0) {
+      setAvailablePerso([]);
+    } else {
+      // Get all perso that have selected this raid
+      const personnageListForRaid = getRaidData(raidData, idRaid);
+      // Get all statics for that raid (static inclues perso)
+      const staticsListForRaid = staticData.filter(
+        (thiStatic) => thiStatic.Teams.idRaid === idRaid
+      );
+      // Create array of all perso that have a static for this raid
+      const persoIdsToExclude = staticsListForRaid.map(
+        (thisStatic) => thisStatic.idPerso
+      );
+      // Loop on perso list to excluse the wrong one
+      let finalPersoList: PersoRaid[] = [];
+      personnageListForRaid.forEach((perso) => {
+        if (persoIdsToExclude.includes(perso.idPerso) === false) {
+          finalPersoList = [...finalPersoList, perso];
+        }
+      });
+      // Finally update the state
+      setAvailablePerso(finalPersoList);
+    }
+  }, [idRaid]);
+
+  //
   const setUpData = async () => {
     if (id) {
       const idteam = Number(id);
@@ -188,9 +216,8 @@ export const StaticFormScreen = () => {
           <i>Choisir le raid pour voir les personnages s'afficher</i>
         )}
         {idRaid !== 0 && (
-          <ListPersoChipForRaid
-            persoList={raidData}
-            raidID={idRaid}
+          <ListPersoChip
+            persoList={availablePerso}
             onTapPerso={clickDispoPersoChip}
           />
         )}
