@@ -5,6 +5,7 @@ import { Chip, Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 import { deleteTeamApi, useStaticHook, useTeamHook } from "../api/StaticsApi";
 import { Static } from "../types/All";
@@ -31,6 +32,10 @@ export const StaticsScreen = () => {
     refresh();
   };
 
+  const onModifyTeamClick = async (idTeam: number) => {
+    // todo
+  };
+
   const showTeamForm = () => {
     navigate("/statics/create");
   };
@@ -51,29 +56,40 @@ export const StaticsScreen = () => {
             <p className="TeamCardName">{team.name}</p>
             <div className="TeamPersoList">
               {getTeamData(team.id).map((perso) => (
-                <Chip
-                  label={
-                    perso.Personnage.Guildy.name +
-                    " - " +
-                    perso.Personnage.Archetype.name
-                  }
-                  size="small"
-                  variant={"outlined"}
-                  className="Chip"
-                  color={
-                    perso.Personnage.Archetype.is_support
-                      ? "primary"
-                      : "default"
-                  }
-                />
+                <>
+                  <Chip
+                    label={
+                      perso.Personnage.Guildy.name +
+                      " - " +
+                      perso.Personnage.Archetype.name
+                    }
+                    size="small"
+                    variant={"outlined"}
+                    className="Chip"
+                    color={
+                      perso.Personnage.Archetype.is_support
+                        ? "primary"
+                        : "default"
+                    }
+                  />
+                  <br />
+                </>
               ))}
             </div>
-            <IconButton
-              aria-label="delete"
-              onClick={() => onDeleteTeamClick(team.id)}
-            >
-              <DeleteIcon />
-            </IconButton>
+            <div className="IconContainer">
+              <IconButton
+                aria-label="modify"
+                onClick={() => onModifyTeamClick(team.id)}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                aria-label="delete"
+                onClick={() => onDeleteTeamClick(team.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </div>
           </div>
         ))}
       </div>
