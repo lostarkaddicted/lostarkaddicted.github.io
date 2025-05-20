@@ -10,6 +10,8 @@ import Link from "@mui/material/Link";
 import { useRaidPersoHook, useRaidsHook } from "../api/RaidsApi";
 import {
   addTeamApi,
+  deleteTeamMembersApi,
+  getMembersFromTeamApi,
   getTeamApi,
   getTeamIdApi,
   modifyTeamApi,
@@ -41,10 +43,22 @@ export const StaticFormScreen = () => {
 
   const setUpData = async () => {
     if (id) {
-      const team = await getTeamApi(Number(id));
+      const idteam = Number(id);
+      const team = await getTeamApi(idteam);
       if (team) {
         setIdRaid(team.idRaid);
         setName(team.name);
+
+        const members = await getMembersFromTeamApi(idteam);
+        let newArray: PersoRaid[] = [];
+        members.forEach((element) => {
+          const newPerso: PersoRaid = {
+            ...element,
+            idRaid: team.idRaid,
+          };
+          newArray = [...newArray, newPerso];
+        });
+        setSelectedPerso(members);
       }
     }
   };
@@ -95,8 +109,15 @@ export const StaticFormScreen = () => {
     if (computeError() === true || id === undefined) {
       return;
     }
+    const teamId = Number(id);
     // Crée la team
-    await modifyTeamApi(Number(id), name, idRaid);
+    await modifyTeamApi(teamId, name, idRaid);
+    // Delete les gens de la table statics where idteam=id
+    await deleteTeamMembersApi(teamId);
+    // Enregistrer les perso pour la team (dans la table static)
+    selectedPerso.forEach(async (perso) => {
+      await setMemberToTeamApi(teamId, perso);
+    });
     // Fermer la page
     closeTeamForm();
   };

@@ -37,6 +37,17 @@ export const useStaticHook = () => {
   return { staticData, refresh };
 };
 
+export const getMembersFromTeamApi = async (idTeam: number) => {
+  let { data } = await supabase
+    .from("Statics")
+    .select(
+      "*, Personnage ( name, Guildy (name), Archetype (name, is_support) )"
+    )
+    .eq("idTeam", idTeam);
+  console.log(data);
+  return data ?? [];
+};
+
 export const useTeamHook = () => {
   const [teams, setTeams] = useState<Team[]>([]);
 
@@ -99,4 +110,8 @@ export const setMemberToTeamApi = async (teamId: number, perso: PersoRaid) => {
 export const deleteTeamApi = async (idTeam: number) => {
   await supabase.from("Statics").delete().eq("idTeam", idTeam);
   await supabase.from("Teams").delete().eq("id", idTeam);
+};
+
+export const deleteTeamMembersApi = async (idTeam: number) => {
+  await supabase.from("Statics").delete().eq("idTeam", idTeam);
 };
