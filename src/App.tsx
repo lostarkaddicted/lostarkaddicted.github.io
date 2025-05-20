@@ -75,6 +75,7 @@ const App: React.FC = () => {
         <Route path="/raids" element={<RaidsScreen />} />
         <Route path="/statics" element={<StaticsScreen />} />
         <Route path="/statics/create" element={<StaticFormScreen />} />
+        <Route path="/statics/edit/:id" element={<StaticFormScreen />} />
       </Routes>
     </Router>
   );

@@ -33,7 +33,7 @@ export const StaticsScreen = () => {
   };
 
   const onModifyTeamClick = async (idTeam: number) => {
-    // todo
+    navigate("/statics/edit/" + idTeam);
   };
 
   const showTeamForm = () => {

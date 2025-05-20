@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 //
 import { Box, TextField, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -10,7 +10,9 @@ import Link from "@mui/material/Link";
 import { useRaidPersoHook, useRaidsHook } from "../api/RaidsApi";
 import {
   addTeamApi,
+  getTeamApi,
   getTeamIdApi,
+  modifyTeamApi,
   setMemberToTeamApi,
 } from "../api/StaticsApi";
 import {
@@ -22,6 +24,7 @@ import { PersoRaid } from "../types/All";
 export const StaticFormScreen = () => {
   //
   const navigate = useNavigate();
+  const { id } = useParams();
   // Remote data
   const { raids } = useRaidsHook();
   const { raidData } = useRaidPersoHook();
@@ -30,6 +33,21 @@ export const StaticFormScreen = () => {
   const [name, setName] = React.useState("");
   const [idRaid, setIdRaid] = React.useState(0);
   const [selectedPerso, setSelectedPerso] = React.useState<PersoRaid[]>([]);
+
+  // Set inital data
+  useEffect(() => {
+    setUpData();
+  }, [id]);
+
+  const setUpData = async () => {
+    if (id) {
+      const team = await getTeamApi(Number(id));
+      if (team) {
+        setIdRaid(team.idRaid);
+        setName(team.name);
+      }
+    }
+  };
 
   // Form Handlers
   const handleRaidChange = (event: SelectChangeEvent) => {
@@ -69,6 +87,16 @@ export const StaticFormScreen = () => {
         await setMemberToTeamApi(teamId, perso);
       });
     }
+    // Fermer la page
+    closeTeamForm();
+  };
+
+  const modifyTeam = async () => {
+    if (computeError() === true || id === undefined) {
+      return;
+    }
+    // Crée la team
+    await modifyTeamApi(Number(id), name, idRaid);
     // Fermer la page
     closeTeamForm();
   };
@@ -152,9 +180,9 @@ export const StaticFormScreen = () => {
         <Button
           variant="outlined"
           startIcon={<AddCircleOutlineIcon />}
-          onClick={addTeam}
+          onClick={id ? modifyTeam : addTeam}
         >
-          {"Ajouter"}
+          {id ? "Modifier" : "Ajouter"}
         </Button>
         <br />
         {hasError === true && (

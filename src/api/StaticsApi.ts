@@ -70,9 +70,24 @@ export const addTeamApi = async (name: string, idRaid: number) => {
   await supabase.from("Teams").insert({ name, idRaid });
 };
 
+export const modifyTeamApi = async (
+  id: number,
+  name: string,
+  idRaid: number
+) => {
+  await supabase.from("Teams").update({ name, idRaid }).eq("id", id);
+};
+
 export const getTeamIdApi = async (name: string) => {
   let { data } = await supabase.from("Teams").select().eq("name", name);
   return data;
+};
+
+export const getTeamApi = async (id: number) => {
+  let { data } = await supabase.from("Teams").select("*").eq("id", id);
+  if (data && data.length > 0) {
+    return data[0];
+  }
 };
 
 export const setMemberToTeamApi = async (teamId: number, perso: PersoRaid) => {
